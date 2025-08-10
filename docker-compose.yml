@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  x-discord-bot:
+    build: .
+    container_name: x-discord-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Persistent data storage
+      - ./data:/app/data
+      # Google credentials (if using service account)
+      - ./custom-search-1731290468460-07b857abd390.json:/app/custom-search-1731290468460-07b857abd390.json:ro
+    environment:
+      # Override database path to use mounted volume
+      - DB_PATH=/app/data/bot_state.db
+      # Set timezone for cron scheduling
+      - TZ=US/Eastern
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3" 
