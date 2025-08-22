@@ -40,8 +40,6 @@ services:
       # Mount data directory for persistence
       - ./data:/app/data
       - ./logs:/app/logs
-      # Mount credentials file (place your service-account.json in ./data/)
-      - ./data/service-account.json:/app/data/service-account.json:ro
     
     # Optional: expose port for future web interface
     ports:
