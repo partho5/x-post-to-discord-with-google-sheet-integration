@@ -31,12 +31,6 @@ COPY . .
 # Create necessary directories
 RUN mkdir -p data logs
 
-# Create cron job for Discord notifications (10 AM EST & 4 PM EST)
-RUN echo "0 10 * * * cd /app && python src/discord_notifier.py >> logs/discord_notifier.log 2>&1" > /etc/cron.d/discord-notifier && \
-    echo "0 16 * * * cd /app && python src/discord_notifier.py >> logs/discord_notifier.log 2>&1" >> /etc/cron.d/discord-notifier && \
-    chmod 0644 /etc/cron.d/discord-notifier && \
-    crontab /etc/cron.d/discord-notifier
-
 # Create startup script
 RUN echo '#!/bin/bash\n\
 # Start cron service\n\
