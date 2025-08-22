@@ -46,24 +46,24 @@ echo "✅ Docker is running"
 
 # Build and start the container
 echo "🔨 Building Docker image..."
-docker-compose build
+docker compose build
 
 echo "🚀 Starting container..."
-docker-compose up -d
+docker compose up -d
 
 echo ""
 echo "✅ Deployment completed!"
 echo ""
 echo "📊 Container Status:"
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "📝 Useful Commands:"
-echo "  View logs:           docker-compose logs -f"
-echo "  Stop container:      docker-compose down"
-echo "  Restart container:   docker-compose restart"
-echo "  Shell access:        docker-compose exec x2discord bash"
-echo "  Discord logs:        docker-compose exec x2discord tail -f logs/discord_notifier.log"
+echo "  View logs:           docker compose logs -f"
+echo "  Stop container:      docker compose down"
+echo "  Restart container:   docker compose restart"
+echo "  Shell access:        docker compose exec x2discord bash"
+echo "  Discord logs:        docker compose exec x2discord tail -f logs/discord_notifier.log"
 echo ""
 echo "⏰ Discord notifications scheduled for 10 AM & 4 PM EST"
 echo "🔄 Main scraping pipeline runs once on startup"

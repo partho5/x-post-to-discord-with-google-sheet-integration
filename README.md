@@ -199,7 +199,7 @@ notifier.run()
    ./deploy.sh
    
    # Or manually with Docker Compose
-   docker-compose up --build -d
+   docker compose up --build -d
    ```
 
 ### Container Behavior
@@ -213,22 +213,22 @@ notifier.run()
 
 ```bash
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Stop container
-docker-compose down
+docker compose down
 
 # Restart container
-docker-compose restart
+docker compose restart
 
 # Shell access
-docker-compose exec x2discord bash
+docker compose exec x2discord bash
 
 # View Discord notification logs
-docker-compose exec x2discord tail -f logs/discord_notifier.log
+docker compose exec x2discord tail -f logs/discord_notifier.log
 
 # Check container status
-docker-compose ps
+docker compose ps
 ```
 
 ### Manual Build
