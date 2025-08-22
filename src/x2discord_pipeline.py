@@ -29,6 +29,12 @@ class X2DiscordPipeline:
                 start_index = all_x_accounts.index(last_processed) + 1
                 print(f"Resuming from account {start_index + 1}")
             
+            # Handle cycling when all accounts are finished
+            if start_index >= len(all_x_accounts):
+                start_index = 0
+                self.db_ops.update_last_processed_account("")
+                print("All accounts processed. Starting new cycle from beginning.")
+            
             # Process each account
             for i, username in enumerate(all_x_accounts[start_index:], start_index + 1):
                 print(f"\n--- Processing account {i}/{len(all_x_accounts)}: @{username} ---")
