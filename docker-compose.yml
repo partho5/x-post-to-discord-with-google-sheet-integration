@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  x2discord:
+    build: .
+    container_name: x2discord_pipeline
+    restart: unless-stopped
+    environment:
+      # Google Sheets Integration
+      - GOOGLE_CREDENTIALS_PATH=/app/data/service-account.json
+      - GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID}
+      
+      # Discord Configuration
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+      - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
+      - DISCORD_CHANNEL_ID=${DISCORD_CHANNEL_ID}
+      
+      # OpenAI Configuration
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      
+      # Apify Configuration
+      - APIFY_TOKEN=${APIFY_TOKEN}
+      - APIFY_ACTOR_ID=${APIFY_ACTOR_ID}
+      
+      # X/Twitter API (optional)
+      - X_BEARER_TOKEN=${X_BEARER_TOKEN}
+      
+      # Optional Settings
+      - SCRAPING_DELAY=${SCRAPING_DELAY:-10}
+      - NOTIFICATION_TIMES=${NOTIFICATION_TIMES:-10:00,16:00}
+      - POSTS_PER_ACCOUNT=${POSTS_PER_ACCOUNT:-10}
+      - DATABASE_PATH=${DATABASE_PATH:-data/database.db}
+      
+      # Timezone
+      - TZ=America/New_York
+    
+    volumes:
+      # Mount data directory for persistence
+      - ./data:/app/data
+      - ./logs:/app/logs
+      # Mount credentials file (place your service-account.json in ./data/)
+      - ./data/service-account.json:/app/data/service-account.json:ro
+    
+    # Optional: expose port for future web interface
+    ports:
+      - "8000:8000"
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sqlite3; sqlite3.connect('data/database.db').close()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  default:
+    name: x2discord_network

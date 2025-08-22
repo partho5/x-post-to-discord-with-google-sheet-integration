@@ -1,0 +1,25 @@
+# Core dependencies
+aiohttp==3.9.1
+python-dotenv==1.0.0
+
+# Google Sheets integration
+gspread==6.2.1
+google-auth==2.40.3
+google-auth-oauthlib==1.2.2
+
+# OpenAI integration
+openai>=1.12.0
+
+# Database
+# sqlite3  # Built-in with Python
+
+# Utilities
+requests==2.32.4
+urllib3==2.5.0
+pytz==2024.1
+
+# Apify API Client
+apify-client
+
+
+
